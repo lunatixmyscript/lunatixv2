@@ -2,12 +2,12 @@
 
 # */
 # Credit Autoscript OIA
-# [ @lunatix | Owner ]
+# [ @lunatix | Developer ]
 # [ @lunatixvpn   | Base Code ]
 # [ @LunaticTunnel  | Base Menu ]
 # ===========================
 # Tools Usage:
-#             - Termux, MT Manager, Acode
+#             - MT Manager, Termux
 #             - VsCode, Github, Comand Promt
 # /*
 
@@ -57,6 +57,10 @@ apt install speedtest-cli -y
 apt install cron -y
 apt install figlet -y
 apt install zip unzip -y
+sleep 2
+echo ""
+echo -e "\e[97;1m Install Pkg \e[92;1mSucces\e[0m"
+sleep 1
 clear
 
 
