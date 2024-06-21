@@ -103,6 +103,11 @@ mkdir -p /detail/tro
 mkdir -p /detail/ssr
 mkdir -p /detail/ssh
 sleep 1
+mkdir -p /etc/lunatix/vle.db
+mkdir -p /etc/lunatix/vme.db
+mkdir -p /etc/lunatix/tro.db
+mkdir -p /etc/lunatix/ssr.db
+mkdir -p /etc/lunatix/ssh.db
 mkdir -p /var
 mkdir -p /var/lib
 mkdir -p /var/lib/crot
@@ -125,6 +130,12 @@ touch /etc/lunatix/.pptp
 touch /etc/lunatix/.ptp
 touch /etc/lunatix/.wireguard
 touch /etc/lunatix/.socks5
+touch /etc/lunatix/.ssh.db
+touch /etc/lunatix/.ssr.db
+touch /etc/lunatix/.tro.db
+touch /etc/lunatix/.vle.db
+touch /etc/lunatix/.vme.db
+
 chmod +x /var/log/xray/*
 touch /etc/lunatix/limit/ssh/ip/syslog
 touch /etc/lunatix/limit/ssh/ip/rere
