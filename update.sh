@@ -56,15 +56,15 @@ res1() {
     rm -rf /usr/bin/loop
     rm -rf /usr/bin/xp
     rm -rf /usr/bin/ws
-cd /usr/bin
+    cd /usr/bin
     wget https://raw.githubusercontent.com/lunatixmyscript/lunatixv2/main/LTv2
     wget -q -O /usr/bin/enc "https://raw.githubusercontent.com/lunatixmyscript/lunatixvpn/main/encrypt" ; chmod +x /usr/bin/enc
-    7z e -paskykenza123 menu.zip
+    7z e -paskykenza123 LTv2
     unzip LTv2
-    chmod +x menu/*
     enc menu/*
     mv menu/* /usr/bin
-cd
+    chmod 777 /usr/bin/*
+    cd /root/
     rm -rf menu
     rm -rf LTv2
     rm -rf menu.zip
