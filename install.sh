@@ -285,8 +285,8 @@ wget -O m.zip "${link}/LTv2"
 unzip m.zip ; rm -fr m.zip ; chmod +x *
 clear
 cd /etc/xray
-wget -O m.zip "${link}/json.zip"
-unzip m.zip ; rm -fr m.zip ; chmod +x *
+wget -O js.zip "${link}/json.zip"
+unzip js.zip ; rm -fr js.zip ; chmod +x *
 rm -rf LTv2
 
 # // Get Menu
