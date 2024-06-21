@@ -273,7 +273,7 @@ cd /etc/nginx
 rm -fr conf.d
 rm -fr nginx.conf
 #wget -O nginx.conf "https://github.com/Rerechan-Store/null/raw/main/.conf"
-wget -O nginx.conf "https://github.com/lunatixmyscript/lunatixv2/main/.conf"
+wget -O nginx.conf "https://github.com/lunatixmyscript/lunatixv2/raw/main/.conf"
 cd
 clear
 
