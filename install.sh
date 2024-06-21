@@ -135,10 +135,12 @@ echo
 echo -e "\e[32;1m Succesfully \e[0m"
 sleep 2
 # // Meminta Konfigurasi
+mkdir -p /var/lib
 clear
 echo
 read -p "Input Your Domain: " domain
 echo "${domain}" > /etc/xray/domain
+echo "${domain}" > /var/lib/crot/ipvps.conf
 clear
 
 # // Membuat Layanan Selalu Berjalan
@@ -224,9 +226,32 @@ apt-get autoclean -y
 clear
 
 # // Melakukan Renew Certificate
+apt install ssl -y
+apt install nginx -y
 apt install certbot -y
 sudo lsof -t -i tcp:80 -s tcp:listen | sudo xargs kill
 clear
+    echo "Pasang SSL"
+    sleep 1
+    rm -rf /etc/xray/xray.key
+    rm -rf /etc/xray/xray.crt
+    domain=$(cat /etc/xray/domain)
+    STOPWEBSERVER=$(lsof -i:80 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
+    rm -rf /root/.acme.sh
+    mkdir /root/.acme.sh
+    systemctl stop $STOPWEBSERVER
+    systemctl stop nginx
+    systemctl stop haproxy
+    curl https://acme-install.netlify.app/acme.sh -o /root/.acme.sh/acme.sh
+    chmod +x /root/.acme.sh/acme.sh
+    /root/.acme.sh/acme.sh --upgrade --auto-upgrade
+    /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+    /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
+    ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
+    chmod 777 /etc/xray/xray.key
+    systemctl restart nginx
+    systemctl restart xray
+    systemctl restart haproxy
 #echo "start"
 #cd /root/
 #clear
@@ -237,32 +262,32 @@ clear
 #chmod 644 /etc/xray/xray.key
 #chmod 644 /etc/xray/xray.crt
 #rm -fr /etc/xray/xray.*
-clear
-read -p "Install certificate for IPv4 or IPv6? (4/6): " ip_version
+#clear
+#read -p "Install certificate for IPv4 or IPv6? (4/6): " ip_version
 #read -p "Enter domain: " domain
-if [[ $ip_version == "4" ]]; then
-    systemctl stop nginx
-    mkdir /root/.acme.sh
-    curl https://acme-install.netlify.app/acme.sh -o /root/.acme.sh/acme.sh
-    chmod +x /root/.acme.sh/acme.sh
-    /root/.acme.sh/acme.sh --upgrade --auto-upgrade
-    /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
-    /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
-    ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
-    echo "Cert installed for IPv4."
-elif [[ $ip_version == "6" ]]; then
-    systemctl stop nginx
-    mkdir /root/.acme.sh
-    curl https://acme-install.netlify.app/acme.sh -o /root/.acme.sh/acme.sh
-    chmod +x /root/.acme.sh/acme.sh
-    /root/.acme.sh/acme.sh --upgrade --auto-upgrade
-    /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
-    /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256 --listen-v6
-    ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
-    echo "Cert installed for IPv6."
-else
-    echo "Invalid IP version. Please choose '4' for IPv4 or '6' for IPv6."
-fi
+#if [[ $ip_version == "4" ]]; then
+#    systemctl stop nginx
+#    mkdir /root/.acme.sh
+#    curl https://acme-install.netlify.app/acme.sh -o /root/.acme.sh/acme.sh
+#    chmod +x /root/.acme.sh/acme.sh
+#    /root/.acme.sh/acme.sh --upgrade --auto-upgrade
+#    /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+#    /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
+#    ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
+#    echo "Cert installed for IPv4."
+#elif [[ $ip_version == "6" ]]; then
+#    systemctl stop nginx
+#    mkdir /root/.acme.sh
+#    curl https://acme-install.netlify.app/acme.sh -o /root/.acme.sh/acme.sh
+#    chmod +x /root/.acme.sh/acme.sh
+#    /root/.acme.sh/acme.sh --upgrade --auto-upgrade
+#    /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+#    /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256 --listen-v6
+#    ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
+#    echo "Cert installed for IPv6."
+#else
+#    echo "Invalid IP version. Please choose '4' for IPv4 or '6' for IPv6."
+#fi
 # // Menginstall Nginx
 clear
 chmod 644 /etc/xray/*
