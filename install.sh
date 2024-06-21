@@ -97,7 +97,11 @@ mkdir -p /etc/v2ray
 sleep 1
 mkdir -p /detail
 sleep 1
-mkdir -p /etc/detail
+mkdir -p /detail/vle
+mkdir -p /detail/vme
+mkdir -p /detail/tro
+mkdir -p /detail/ssr
+mkdir -p /detail/ssh
 sleep 1
 mkdir -p /var
 mkdir -p /var/lib
