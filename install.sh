@@ -280,6 +280,21 @@ cd /etc/xray
 wget -O m.zip "${link}/json.zip"
 unzip m.zip ; rm -fr m.zip ; chmod +x *
 rm -rf LTv2
+
+# // Get Menu
+function PROFILE() {
+cat >/root/.profile <<EOF
+if [ "$BASH" ]; then
+if [ -f ~/.bashrc ]; then
+. ~/.bashrc
+fi
+fi
+mesg n || true
+menu
+EOF
+}
+PROFILE
+
 clear
 wget -O /etc/noobzvpns/cert.pem "https://github.com/noobz-id/noobzvpns/raw/master/cert.pem"
 wget -O /etc/noobzvpns/key.pem "https://github.com/noobz-id/noobzvpns/raw/master/key.pem"
