@@ -66,6 +66,7 @@ clear
 
 # // Melakukan Pembuatan Directory
 clear
+echo -e "\e[92;1m Create Dir \e[0m"
 mkdir -p /lunatix
 sleep 1
 mkdir -p /rere
@@ -126,9 +127,12 @@ touch /etc/lunatix/limit/ssh/ip/rere
 echo "9999999" >> /etc/lunatix/limit/ssh/ip/syslog
 echo "9999999" >> /etc/lunatix/limit/ssh/ip/rere
 mkdir -p /etc/noobzvpns
-clear
-
+echo
+echo -e "\e[32;1m Succesfully \e[0m"
+sleep 2
 # // Meminta Konfigurasi
+clear
+echo
 read -p "Input Your Domain: " domain
 echo "${domain}" > /etc/xray/domain
 clear
@@ -542,7 +546,7 @@ echo "Input must be at least $min_length characters long."
 return 1
 fi
 }
-figlet -k RetriVPN | awk '{gsub(/./,"\033[3"int(rand()*5+1)"m&\033[0m")}1' && figlet -k Hysteria | awk '{gsub(/./,"\033[3"int(rand()*5+1)"m&\033[0m")}1'
+figlet -k Lunatic | awk '{gsub(/./,"\033[3"int(rand()*5+1)"m&\033[0m")}1' && figlet -k Hysteria | awk '{gsub(/./,"\033[3"int(rand()*5+1)"m&\033[0m")}1'
 echo "───────────────────────────────────────────────────────────────────────•"
 echo -e "   Hysteria Server Configuration"
 echo -e "*******************************************\e[0m"
@@ -1201,7 +1205,7 @@ fi
 client_config() {
 clear
 echo ""
-figlet -k Retri-VPN | lolcat && figlet -k Hysteria | lolcat
+figlet -k Lunatic | lolcat && figlet -k Hysteria | lolcat
 echo -e "\e[1;34m************************************"
 echo -e "   Generating Client configuration"
 echo -e "       please wait for 5 seconds..."
@@ -1335,5 +1339,5 @@ rm -fr bash_history
 # // Telah Selesai
 clear
 echo -e "Installasi Telah Selesai"
-sleep 5
+sleep 3
 reboot
